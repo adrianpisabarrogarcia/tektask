@@ -1,7 +1,18 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './auth/login/login.component';
+import { LoginComponent } from './components/login/login.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { authGuard } from './auth.guard';
+
+const isLoggedIn = () => {
+  if (!sessionStorage.getItem('userToken')) {
+    return 'login';
+  }
+  return 'dashboard';
+}
+
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' }
+  { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
+  { path: '', redirectTo: isLoggedIn, pathMatch: 'full' }
 ];
