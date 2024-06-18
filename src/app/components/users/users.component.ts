@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-users',
   standalone: true,
   imports: [HeaderComponent],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  templateUrl: './users.component.html',
+  styleUrl: './users.component.css'
 })
-export class DashboardComponent {
+export class UsersComponent {
 
 }

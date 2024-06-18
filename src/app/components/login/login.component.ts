@@ -30,25 +30,27 @@ export class LoginComponent {
 
   onSubmit() {
     if (!this.email || !this.password) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Email and password are required' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Se requiere correo electrónico y contraseña' });
       return;
     }
     this.authService.login(this.email, this.password)
       .pipe(
         catchError((error) => {
           if (error.status !== 200) {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Login failed with status: ' + error.status });
+            if(error.status === 401) {
+                this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Correo electrónico o contraseña incorrecta' });
+            }else{
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al iniciar sesión con estado: ' + error.status });
+            }
           }
           return throwError(() => error);
         })
       )
       .subscribe((data) => {
         if (data) {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login successful' });
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Sesión iniciada correctamente' });
           sessionStorage.setItem('userToken', 'token1234567890');
           this.router.navigate(['/dashboard']);
-        } else {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Login failed' });
         }
       });
   }
