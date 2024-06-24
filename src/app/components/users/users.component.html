@@ -8,12 +8,12 @@
   <section class="card mb-4">
     <p-table
     #dt
-    [value]="products"
+    [value]="users"
     [paginator]="true"
     [rows]="10"
     (sortFunction)="customSort($event)"
     [customSort]="true"
-    [(selection)]="selectedProduct"
+    [(selection)]="selectedUser"
     dataKey="code"
     [rowsPerPageOptions]="[10, 25, 50, 100]"
 
@@ -21,29 +21,37 @@
       <ng-template pTemplate="header">
         <tr>
           <th style="width: 1rem"></th>
-          <th pSortableColumn="code">
-            <span class="flex items-center">Code <p-sortIcon field="code" /></span>
+          <th pSortableColumn="id">
+            <span class="flex items-center">Id <p-sortIcon field="id" /></span>
           </th>
-          <th pSortableColumn="name">
-            <span class="flex items-center">Name <p-sortIcon field="name" /></span>
+          <th pSortableColumn="nombre">
+            <span class="flex items-center">Nombre y Apellidos <p-sortIcon field="nombre" /></span>
           </th>
-          <th pSortableColumn="category">
-            <span class="flex items-center">Category <p-sortIcon field="category" /></span>
+          <th pSortableColumn="correo">
+            <span class="flex items-center">Correo <p-sortIcon field="correo" /></span>
           </th>
-          <th pSortableColumn="quantity">
-            <span class="flex items-center">Quantity <p-sortIcon field="quantity" /></span>
+          <th pSortableColumn="rol_id">
+            <span class="flex items-center">Rol <p-sortIcon field="rol_id" /></span>
+          </th>
+          <th pSortableColumn="fecha_creacion">
+            <span class="flex items-center">Fecha de creación <p-sortIcon field="fecha_creacion" /></span>
+          </th>
+          <th pSortableColumn="activo">
+            <span class="flex items-center">Activo <p-sortIcon field="activo" /></span>
           </th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-product>
+      <ng-template pTemplate="body" let-user>
         <tr>
           <td class="flex items-center justify-center">
-            <p-tableRadioButton [value]="product" style="display: flex; border: 1 px solid gray" />
+            <p-tableRadioButton [value]="user.id" />
           </td>
-          <td>{{ product.code }}</td>
-          <td>{{ product.name }}</td>
-          <td>{{ product.category }}</td>
-          <td>{{ product.quantity }}</td>
+          <td>{{ user.id }}</td>
+          <td>{{ user.nombre }}</td>
+          <td>{{ user.correo }}</td>
+          <td>{{ getRoleName(user.rol_id) }}</td>
+          <td>{{ user.fecha_creacion }}</td>
+          <td>{{ user.activo ? '✅ Sí' : '❌ No' }}</td>
         </tr>
       </ng-template>
     </p-table>

@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { Table } from 'primeng/table';
 import { SortEvent } from 'primeng/api';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { User } from '../../models/user.model';
+import { Role } from '../../models/role.enum';
 
 
 @Component({
@@ -23,20 +25,20 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 export class UsersComponent implements OnInit {
   @ViewChild('dt') dt!: Table;
 
-  products: Product[] = [];
+  users: User[] = [];
 
-  initialValue: Product[] = [];
+  initialValue: User[] = [];
 
   isSorted: boolean = false;
 
-  selectedProduct!: Product;
+  selectedUser!: User;
 
 
-  constructor(private productService: UsersService) { }
+  constructor(private userService: UsersService) { }
 
   ngOnInit() {
-    this.productService.getProducts().then((data) => {
-      this.products = data;
+    this.userService.getUsers().subscribe((data: User[]) => {
+      this.users = data;
       this.initialValue = [...data];
     });
   }
@@ -50,14 +52,14 @@ export class UsersComponent implements OnInit {
       this.sortTableData(event);
     } else {
       this.isSorted = false;
-      this.products = [...this.initialValue];
+      this.users = [...this.initialValue];
       this.dt.reset();
     }
   }
 
   sortTableData(event: SortEvent) {
     if (event.data) {
-      event.data.sort((data1: Product, data2: Product) => {
+      event.data.sort((data1: User, data2: User) => {
         let value1: any = event.field ? data1[event.field] : undefined;
         let value2: any = event.field ? data2[event.field] : undefined;
         let result: number | null = null;
@@ -84,19 +86,8 @@ export class UsersComponent implements OnInit {
       });
     }
   }
-}
 
-
-export interface Product {
-  id?: string;
-  code?: string;
-  name?: string;
-  description?: string;
-  price?: number;
-  quantity?: number;
-  inventoryStatus?: string;
-  category?: string;
-  image?: string;
-  rating?: number;
-  [key: string]: any; // Add index signature
+  getRoleName(roleId: Role): string {
+    return Role[roleId];
+  }
 }
