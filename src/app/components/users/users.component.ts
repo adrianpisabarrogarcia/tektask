@@ -8,6 +8,9 @@ import { SortEvent } from 'primeng/api';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { User } from '../../models/user.model';
 import { Role } from '../../models/role.enum';
+import { ButtonModule } from 'primeng/button';
+import { ModalComponent } from './modal/modal.component';
+
 
 
 @Component({
@@ -16,23 +19,21 @@ import { Role } from '../../models/role.enum';
   imports: [
     HeaderComponent,
     TableModule,
-    RadioButtonModule
+    RadioButtonModule,
+    ButtonModule,
+    ModalComponent
   ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css',
   providers: [UsersService]
 })
 export class UsersComponent implements OnInit {
+
   @ViewChild('dt') dt!: Table;
-
   users: User[] = [];
-
   initialValue: User[] = [];
-
   isSorted: boolean = false;
-
   selectedUser!: User;
-
 
   constructor(private userService: UsersService) { }
 
@@ -71,6 +72,8 @@ export class UsersComponent implements OnInit {
           result = 0;
         } else if (typeof value1 === 'string' && typeof value2 === 'string') {
           result = value1.localeCompare(value2);
+        } else if (typeof value1 === 'boolean' && typeof value2 === 'boolean') {
+          result = (value1? 1 : 0) - (value2? 1 : 0);
         } else {
           const isValue1LessThanValue2 = value1 < value2;
           const isValue1GreaterThanValue2 = value1 > value2;
@@ -90,4 +93,9 @@ export class UsersComponent implements OnInit {
   getRoleName(roleId: Role): string {
     return Role[roleId];
   }
+
+  showAdd() {
+    this.userService.showModal();
+  }
+
 }
