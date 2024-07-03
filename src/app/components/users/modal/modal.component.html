@@ -1,24 +1,23 @@
-<p-dialog header="Añadir un nuevo usuario" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }"
-  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="true">
+<p-dialog
+  header="Añadir un nuevo usuario"
+  [modal]="true"
+  [(visible)]="visible"
+  [style]="{width: '50rem' }"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [maximizable]="true">
   <div class="m-2">
     <div class="flex flex-col mb-2">
       <label for="name" class="me-2 font-bold">Nombre y apellidos:</label>
-      <input type="text" class="
-                    form-input p-2
-                    rounded-md border border-solid border-gray-300
-                    shadow-sm focus:border-indigo-300
-                    focus:ring focus:ring-indigo-200
-                    focus:ring-opacity-50" pInputText [(ngModel)]="user.nombre" />
+      <input type="text" class="form-input p-2 rounded-md border border-solid
+      border-gray-300 shadow-sm focus:border-indigo-300
+        focus:ring focus:ring-indigo-200
+        focus:ring-opacity-50" pInputText [(ngModel)]="user.nombre" />
     </div>
     <div class="flex flex-col mb-2">
       <label for="name" class="me-2 font-bold">Correo electrónico:</label>
-      <input type="email" class="
-                            form-input p-2
-                            rounded-md border border-solid border-gray-300
-                            shadow-sm focus:border-indigo-300
-                            focus:ring focus:ring-indigo-200
-                            focus:ring-opacity-50" pInputText [(ngModel)]="user.correo" />
+      <input type="email" class="form-input p-2 rounded-md border
+        border-solid border-gray-300 shadow-sm focus:border-indigo-300
+        focus:ring focus:ring-indigo-200 focus:ring-opacity-50" pInputText [(ngModel)]="user.correo" />
     </div>
-
   </div>
 </p-dialog>
