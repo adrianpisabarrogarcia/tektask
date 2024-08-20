@@ -9,12 +9,16 @@ import { environment } from '../../environments/environment'; // Ajusta la ruta 
 })
 export class AuthService {
 
-  private apiUrl = environment.apiUrl + '/usuarios/login';
+  private apiUrl = environment.apiUrl + '/usuarios';
 
   constructor(private http: HttpClient) { }
 
   login(correo: string, password: string): Observable<any[]> {
-    return this.http.post<any[]>(this.apiUrl, { correo, password });
+    return this.http.post<any[]>(this.apiUrl + '/login', { correo, password });
+  }
+
+  sendRecoveryMail(correo: string): Observable<any[]> {
+    return this.http.post<any[]>(this.apiUrl + '/send-recovery-password-mail', { correo });
   }
 
 }

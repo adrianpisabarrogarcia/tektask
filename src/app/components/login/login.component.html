@@ -1,7 +1,8 @@
 <div class="flex items-center justify-center min-h-screen">
   <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
     <img src="assets/images/tektask-logo.webp" alt="Tektask logo" class="w-48 mx-auto mb-6">
-    <form (ngSubmit)="onSubmit()">
+
+    <form (ngSubmit)="onSubmit()" *ngIf="!this.showPasswordRecovery">
       <div class="mb-4">
         <label for="email" class="block text-sm font-medium text-gray-700">Correo electrónico:</label>
         <input id="email" type="email" pInputText class="w-full p-2 border border-gray-300 rounded-md"
@@ -16,7 +17,23 @@
         <button pButton type="submit" label="Login"
           class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"></button>
       </div>
+      <div class="mt-4 text-center">
+        <a (click)="forgetPasswordShow()" routerLink="/forgot-password" class="text-blue-500 hover:underline hover:cursor-pointer">He olvidado mi contraseña</a>
+      </div>
     </form>
-  </div>
+    <form (ngSubmit)="onRecoveryPassword()" *ngIf="this.showPasswordRecovery">
+      <div class="mb-4">
+        <label for="email" class="block text-sm font-medium text-gray-700">Correo electrónico:</label>
+        <input id="email-recovery" type="email" pInputText class="w-full p-2 border border-gray-300 rounded-md"
+          [(ngModel)]="email" name="email" required>
+      </div>
+      <div class="flex items-center justify-between">
+        <button pButton type="submit" label="Recuperar contraseña"
+          class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"></button>
+      </div>
+      <div class="mt-4 text-center">
+        <a (click)="forgetPasswordHide()" class="text-blue-500 hover:underline hover:cursor-pointer">Volver atrás</a>
+      </div>
+    </form>
 </div>
 <p-toast />

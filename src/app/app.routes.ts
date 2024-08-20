@@ -16,6 +16,7 @@ const isLoggedIn = () => {
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'login/recovery-passowrd/:token', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
   { path: 'projects', component: ProjectsComponent, canActivate: [authGuard] },
   { path: 'tasks', component: TasksComponent, canActivate: [authGuard] },
